@@ -3,7 +3,7 @@ pipeline:
     image: banzaicloud/pipeline-client:0.1.0
     log_level: info
     log_format: text
- 
+  
     cluster_name: "video-demo-cluster-1"
     cluster_location: "eu-west-1"
     cluster_state: "created"
