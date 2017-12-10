@@ -79,4 +79,4 @@ pipeline:
     spark_kubernetes_authenticate_driver_serviceaccount_name: "spark"
     spark_metrics_conf: /opt/spark/conf/metrics.properties
     spark_app_source: target/spark-pi-1.0-SNAPSHOT.jar
-    spark_app_args: 1000
+    spark_app_args: 5000
