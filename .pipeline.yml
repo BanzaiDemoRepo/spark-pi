@@ -4,7 +4,7 @@ pipeline:
     log_level: info
     log_format: text
      
-    cluster_name: "video-demo-cluster-1"
+    cluster_name: "video-demo-cluster-x"
     cluster_location: "eu-west-1"
     cluster_state: "created"
 
@@ -38,7 +38,7 @@ pipeline:
     log_level: info
     log_format: text
 
-    cluster_name: "video-demo-cluster-1"
+    cluster_name: "video-demo-cluster-x"
     cluster_location: "eu-west-1"
     cluster_state: "created"
 
