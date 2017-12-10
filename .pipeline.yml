@@ -1,4 +1,4 @@
-pipeline:
+pipeline: 
   create_cluster:
     image: banzaicloud/pipeline-client:0.1.0
     log_level: info
