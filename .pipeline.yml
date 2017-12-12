@@ -7,7 +7,7 @@ pipeline:
     cluster_name: "video-demo-cluster-x"
     cluster_location: "eu-west-1"
     cluster_state: "created"
-
+ 
     node_image: ami-294ffd50
     node_instance_type: m4.xlarge
     node_spot_price: 0.2
