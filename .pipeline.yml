@@ -1,7 +1,7 @@
 pipeline:
   create_cluster:
-    image: banzaicloud/pipeline-client:0.2.0-rc1
-    cluster_name: "seba-spark-pi-cluster"
+    image: banzaicloud/pipeline-client:latest
+    cluster_name: "miki-spark-pi-cluster"
     secrets: [ plugin_endpoint, plugin_username, plugin_password ]
 
   momnitoring:
@@ -9,24 +9,24 @@ pipeline:
     deployment_release_name: "monitor"
 
   remote_checkout:
-    image: banzaicloud/k8s-proxy:0.2.0-rc2
+    image: banzaicloud/k8s-proxy:latest
     original_image: plugins/git
 
   remote_build:
-    image: banzaicloud/k8s-proxy:0.2.0-rc1
+    image: banzaicloud/k8s-proxy:latest
     original_image: maven:3.5-jdk-8
     original_commands:
       - mvn clean package -s settings.xml
 
   prepare_spark_deps:
-    image: banzaicloud/pipeline-client:0.2.0-rc1
+    image: banzaicloud/pipeline-client:latest
     deployment_name: "spark"
     deployment_release_name: "spark"
     secrets: [ plugin_endpoint, plugin_username, plugin_password ]
 
   run:
-    image: banzaicloud/k8s-proxy:0.2.0-rc1
-    original_image: banzaicloud/spark-submit-k8s:0.2.0-rc1
+    image: banzaicloud/k8s-proxy:latest
+    original_image: banzaicloud/spark-submit-k8s:latest
     pod_service_account: spark
     pull: true
     spark_deploy_mode: cluster
