@@ -1,64 +1,32 @@
-pipeline:  
+pipeline:
   create_cluster:
-    image: banzaicloud/pipeline-client:0.1.0
-    log_level: info
-    log_format: text
-         
-    cluster_name: "video-demo-cluster-v"
-    cluster_location: "eu-west-1"
-    cluster_state: "created"
- 
-    node_image: ami-294ffd50
-    node_instance_type: m4.xlarge
-    node_spot_price: 0.2
-    node_min_count: 1
-    node_max_count: 2
+    image: banzaicloud/pipeline-client:0.2.0-rc1
+    cluster_name: "seba-spark-pi-cluster"
+    secrets: [ plugin_endpoint, plugin_username, plugin_password ]
 
-    master_image: ami-294ffd50
-    master_instance_type: m4.xlarge
-
+  momnitoring:
     deployment_name: "pipeline-cluster-monitor"
     deployment_release_name: "monitor"
-    deployment_state: "created"
-
-    secrets: [ plugin_endpoint, plugin_username, plugin_password]
 
   remote_checkout:
-    image: banzaicloud/k8s-proxy:0.1.0
+    image: banzaicloud/k8s-proxy:0.2.0-rc2
     original_image: plugins/git
 
   remote_build:
-    image: banzaicloud/k8s-proxy:0.1.0
+    image: banzaicloud/k8s-proxy:0.2.0-rc1
     original_image: maven:3.5-jdk-8
     original_commands:
       - mvn clean package -s settings.xml
 
   prepare_spark_deps:
-    image: banzaicloud/pipeline-client:0.1.0
-    log_level: info
-    log_format: text
-
-    cluster_name: "video-demo-cluster-v"
-    cluster_location: "eu-west-1"
-    cluster_state: "created"
-
-    node_image: ami-294ffd50
-    node_instance_type: m4.xlarge
-    node_spot_price: 0.2
-    node_min_count: 1
-    node_max_count: 2
-
-    master_image: ami-294ffd50
-    master_instance_type: m4.xlarge
-
+    image: banzaicloud/pipeline-client:0.2.0-rc1
     deployment_name: "spark"
     deployment_release_name: "spark"
-    deployment_state: "created"
-    secrets: [ plugin_endpoint, plugin_username, plugin_password]
+    secrets: [ plugin_endpoint, plugin_username, plugin_password ]
 
   run:
-    image: banzaicloud/k8s-proxy:0.1.0
-    original_image: banzaicloud/spark-submit-k8s:0.1.0
+    image: banzaicloud/k8s-proxy:0.2.0-rc1
+    original_image: banzaicloud/spark-submit-k8s:0.2.0-rc1
     pod_service_account: spark
     pull: true
     spark_deploy_mode: cluster
@@ -79,4 +47,4 @@ pipeline:
     spark_kubernetes_authenticate_driver_serviceaccount_name: "spark"
     spark_metrics_conf: /opt/spark/conf/metrics.properties
     spark_app_source: target/spark-pi-1.0-SNAPSHOT.jar
-    spark_app_args: 5000
+    spark_app_args: 50000
