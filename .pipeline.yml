@@ -1,32 +1,39 @@
 pipeline:
   create_cluster:
-    image: banzaicloud/pipeline-client:latest
-    cluster_name: "miki-spark-pi-cluster"
-    secrets: [ plugin_endpoint, plugin_username, plugin_password ]
+    image: banzaicloud/plugin-pipeline-client:latest
+# AWS
+    cluster_name: "mcs-tc-03"
+    cluster_provider: azure
+# If you want to start cluster on Azure Cloud
+# Change cluster_provider to "azure" and setting up "azure_resource_group"
+# https://docs.microsoft.com/en-us/azure/azure-resource-manager/xplat-cli-azure-resource-manager
+#    azure_resource_group: "gaborg"
 
-  momnitoring:
-    deployment_name: "pipeline-cluster-monitor"
-    deployment_release_name: "monitor"
+# Please set up these secrets on the CI/CD ui
+    secrets: [ plugin_endpoint, plugin_username, plugin_password]
 
   remote_checkout:
-    image: banzaicloud/k8s-proxy:latest
+    image: banzaicloud/plugin-k8s-proxy:latest
     original_image: plugins/git
 
   remote_build:
-    image: banzaicloud/k8s-proxy:latest
+    image: banzaicloud/plugin-k8s-proxy:latest
     original_image: maven:3.5-jdk-8
     original_commands:
       - mvn clean package -s settings.xml
 
   prepare_spark_deps:
-    image: banzaicloud/pipeline-client:latest
-    deployment_name: "spark"
+    image: banzaicloud/plugin-pipeline-client:latest
+
+    deployment_name: "banzaicloud-stable/spark"
     deployment_release_name: "spark"
-    secrets: [ plugin_endpoint, plugin_username, plugin_password ]
+    deployment_state: "created"
+    
+    secrets: [ plugin_endpoint, plugin_username, plugin_password]
 
   run:
-    image: banzaicloud/k8s-proxy:latest
-    original_image: banzaicloud/spark-submit-k8s:latest
+    image: banzaicloud/plugin-k8s-proxy:latest
+    original_image: banzaicloud/spark-submit-k8s:0.1.0
     pod_service_account: spark
     pull: true
     spark_deploy_mode: cluster
@@ -47,4 +54,4 @@ pipeline:
     spark_kubernetes_authenticate_driver_serviceaccount_name: "spark"
     spark_metrics_conf: /opt/spark/conf/metrics.properties
     spark_app_source: target/spark-pi-1.0-SNAPSHOT.jar
-    spark_app_args: 50000
+    spark_app_args: 1000
