@@ -7,7 +7,7 @@ pipeline:
 # If you want to start cluster on Azure Cloud
 # Change cluster_provider to "azure" and setting up "azure_resource_group"
 # https://docs.microsoft.com/en-us/azure/azure-resource-manager/xplat-cli-azure-resource-manager
-    azure_resource_group: "puski_eastus"
+    azure_resource_group: "MikiNewResource"
 
 # Please set up these secrets on the CI/CD ui
     secrets: [plugin_endpoint, plugin_username, plugin_password]
