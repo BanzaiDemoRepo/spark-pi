@@ -4,7 +4,7 @@ pipeline:
     cluster_name: "miki-test-cluster"
     cluster_provider: "google"
     google_project: "BanzaiPiTest1"
-    google_gke_version: "1.8.7-gke.1"
+    google_gke_version: "1.8.8-gke.0"
     google_node_count: "2"
 
     secrets: [plugin_endpoint, plugin_token]
