@@ -3,7 +3,7 @@ pipeline:
     image: banzaicloud/plugin-pipeline-client:latest
     cluster_name: "miki-test-cluster"
     cluster_provider: "google"
-    google_project: "My First Project"
+    google_project: "BanzaiPiTest1"
     google_gke_version: "1.8.7-gke.1"
     google_node_count: "2"
 
