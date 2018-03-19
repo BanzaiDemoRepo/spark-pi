@@ -26,7 +26,7 @@ pipeline:
      spark-hs:
        app:
          logDirectory: "gs://your-gs-bucket/your-folder"
-
+ 
     secrets: [plugin_endpoint, plugin_token]
 
   remote_checkout:
