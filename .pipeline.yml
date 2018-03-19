@@ -1,7 +1,7 @@
 pipeline:
   create_cluster:
     image: banzaicloud/plugin-pipeline-client:latest
-    cluster_name: "miki-test-cluster-1"
+    cluster_name: "nick-pipeline-1"
     cluster_provider: "google"
     google_project: "master-purpose-195813"
     google_gke_version: "1.8.8-gke.0"
