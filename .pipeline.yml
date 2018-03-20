@@ -1,10 +1,10 @@
 pipeline:
   create_cluster:
     image: banzaicloud/plugin-pipeline-client:latest
-    cluster_name: "nick-pipeline-1"
+    cluster_name: "nick-pipeline-2"
     cluster_provider: "google"
     google_project: "master-purpose-195813"
-    google_gke_version: "1.8.8-gke.0"
+    google_gke_version: "1.9.4-gke.1"
     google_node_count: "2"
 
     secrets: [plugin_endpoint, plugin_token]
@@ -30,17 +30,17 @@ pipeline:
     secrets: [plugin_endpoint, plugin_token]
 
   remote_checkout:
-    image: banzaicloud/drone-plugin-k8s-client:latest
+    image: banzaicloud/plugin-k8s-proxy:latest
     original_image: plugins/git
 
   remote_build:
-    image: banzaicloud/drone-plugin-k8s-client:latest
+    image: banzaicloud/plugin-k8s-proxy:latest
     original_image: maven:3.5-jdk-8
     original_commands:
       - mvn clean package
 
   run:
-    image: banzaicloud/drone-plugin-k8s-client:latest
+    image: banzaicloud/plugin-k8s-proxy:latest
     original_image: banzaicloud/plugin-spark-submit-k8s:latest
     proxy_service_account: spark
 
