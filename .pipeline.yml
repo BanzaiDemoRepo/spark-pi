@@ -20,13 +20,14 @@ pipeline:
     image: banzaicloud/plugin-pipeline-client:0.3.0
 
     deployment_name: "banzaicloud-stable/spark"
+    deployment_release_name: "release-1"
     deployment_values:
      historyServer:
         enabled: true
      spark-hs:
        app:
-         logDirectory: "gs://nicks-first-storage/history-server"
- 
+         logDirectory: "gs://nicks-first-storage/"
+
     secrets: [plugin_endpoint, plugin_token]
 
   remote_checkout:
@@ -50,9 +51,9 @@ pipeline:
     spark_submit_configs:
       spark.app.name: sparkpi
       spark.local.dir: /tmp/spark-locals
-      spark.kubernetes.driver.docker.image: banzaicloud/spark-driver:v2.2.1-k8s-1.0.10
-      spark.kubernetes.executor.docker.image: banzaicloud/spark-executor:v2.2.1-k8s-1.0.10
-      spark.kubernetes.initcontainer.docker.image: banzaicloud/spark-init:v2.2.1-k8s-1.0.10
+      spark.kubernetes.driver.docker.image: banzaicloud/spark-driver:v2.2.1-k8s-1.0.11
+      spark.kubernetes.executor.docker.image: banzaicloud/spark-executor:v2.2.1-k8s-1.0.11
+      spark.kubernetes.initcontainer.docker.image: banzaicloud/spark-init:v2.2.1-k8s-1.0.11
       spark.dynamicAllocation.enabled: "true"
       spark.kubernetes.resourceStagingServer.uri: http://spark-rss:10000
       spark.kubernetes.resourceStagingServer.internal.uri: http://spark-rss:10000
@@ -62,7 +63,7 @@ pipeline:
       spark.kubernetes.authenticate.driver.serviceAccountName: spark
       spark.metrics.conf: /opt/spark/conf/metrics.properties
       spark.eventLog.enabled: "true"
-      spark.eventLog.dir: "gs://your-gs-bucket/your-folder"
+      spark.eventLog.dir: "gs://nicks-first-storage/"
     spark_submit_app_args:
       - target/spark-pi-1.0-SNAPSHOT.jar
       - 1000
