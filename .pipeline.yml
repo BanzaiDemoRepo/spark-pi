@@ -1,12 +1,10 @@
 pipeline:
-  create_cluster:
+ create_cluster:
     image: banzaicloud/plugin-pipeline-client:0.3.0
-    cluster_name: "nick-pipeline-3"
-    cluster_provider: "google"
-    google_project: "master-purpose-195813"
-    google_gke_version: "1.9.4-gke.1"
-    google_node_count: "2"
-
+    cluster_name: "NickPiCluster"
+    cluster_provider: "azure"
+    azure_resource_group: "DemoRG"
+    
     secrets: [plugin_endpoint, plugin_token]
 
   install_monitoring:
@@ -22,11 +20,13 @@ pipeline:
     deployment_name: "banzaicloud-stable/spark"
     deployment_release_name: "release-1"
     deployment_values:
-     historyServer:
-        enabled: true
-     spark-hs:
-       app:
-         logDirectory: "gs://nicks-first-storage/"
+      historyServer:
+        enabled: false
+      spark-hs:
+        app:
+          logDirectory: "wasb://[[your-blob-container]]@{{ .PLUGIN_AZURE_STORAGE_ACCOUNT }}.blob.core.windows.net/"
+          azureStorageAccountName: "{{ .PLUGIN_AZURE_STORAGE_ACCOUNT }}"
+          azureStorageAccessKey: "{{ .PLUGIN_AZURE_STORAGE_ACCOUNT_ACCESS_KEY }}"
 
     secrets: [plugin_endpoint, plugin_token]
 
