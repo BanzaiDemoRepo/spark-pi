@@ -4,7 +4,7 @@ pipeline:
     cluster_name: "nickpi"
     cluster_provider: "azure"
     azure_resource_group: "DemoRG"
-    
+     
     secrets: [plugin_endpoint, plugin_token]
 
   install_monitoring:
