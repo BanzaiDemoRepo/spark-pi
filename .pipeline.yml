@@ -1,5 +1,5 @@
 pipeline:
- create_cluster:
+  create_cluster:
     image: banzaicloud/plugin-pipeline-client:0.3.0
     cluster_name: "NickPiCluster"
     cluster_provider: "azure"
